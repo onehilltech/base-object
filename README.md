@@ -1,7 +1,12 @@
-Blueprint
+Base Object
+
+
+
+
+
 ================
 
-A lightweight, simple, elegant framework for building mean applications
+Base object that enables OOP-like support with JavaScript objects
 
 ![npm version](https://img.shields.io/npm/v/base-object.svg)
 ![node version](https://img.shields.io/node/v/base-object.svg)
