@@ -1,9 +1,4 @@
 Base Object
-
-
-
-
-
 ================
 
 Base object that enables OOP-like support with JavaScript objects
