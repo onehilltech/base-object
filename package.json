@@ -1,6 +1,6 @@
 {
   "name": "base-object",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Base object that enables OOP-like support with JavaScript objects",
   "main": "./lib",
   "scripts": {
