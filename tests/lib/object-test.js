@@ -419,7 +419,9 @@ describe ('lib | BaseObject', function () {
           set (value) {
             [this.firstName, this.lastName] = value.split (' ');
           }
-        })
+        }),
+
+        DEFAULT_NAME: computed.constant ('Adam Staples')
       });
 
       let p1 = new Person ({firstName: 'John', lastName: 'Doe'});
@@ -433,6 +435,11 @@ describe ('lib | BaseObject', function () {
       p1.fullName = 'Jack Black';
       expect (p1.firstName).to.equal ('Jack');
       expect (p1.lastName).to.equal ('Black');
+
+      // test constant
+      expect (p1.DEFAULT_NAME).to.equal ('Adam Staples');
+      p1.DEFAULT_NAME = 'Susan Rice';
+      expect (p1.DEFAULT_NAME).to.equal ('Adam Staples');
 
       // test the enumerable
       let found;
