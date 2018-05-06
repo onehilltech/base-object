@@ -14,18 +14,26 @@
  * limitations under the License.
  */
 
-const BaseObject = require ('../../../lib');
+const { expect } = require ('chai');
+const { computed } = require ('../../../lib');
+const PropertyDescriptor = require ('../../../lib/properties/property-descriptor');
 
-const {
-  expect
-} = require ('chai');
+describe ('lib | properties | computed', function () {
+  it ('should define a computed property', function () {
+    let obj = {
+      fullName: computed ({
+        get () {}
+      })
+    };
 
-describe.skip ('lib | properties | computed', function () {
-  it ('should bind a property to a model', function () {
-    let person = blueprint.lookup ('model:person');
-    let main = blueprint.lookup ('controller:main');
-
-    expect (main.person).to.equal (person);
-    expect (main.model).to.equal (person);
+    expect (obj.fullName).to.be.instanceof (PropertyDescriptor);
   });
+
+  describe ('computed.constant', function () {
+    let obj = {
+      DEFAULT_SIZE: computed.constant (5)
+    };
+
+    expect (obj.DEFAULT_SIZE).to.be.instanceof (PropertyDescriptor);
+  })
 });

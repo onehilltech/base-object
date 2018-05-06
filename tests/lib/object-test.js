@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-const BaseObject = require ('../../lib/object');
-const Mixin = require ('../../lib/mixin');
-const computed = require ('../../lib/properties/computed');
+const {BaseObject, Mixin, computed} = require ('../../lib');
 
 const {expect} = require ('chai');
 const {AssertionError} = require ('assert');
@@ -24,7 +22,7 @@ const {AssertionError} = require ('assert');
 describe ('lib | BaseObject', function () {
   describe ('class', function () {
     it ('should have a set of class properties', function () {
-      expect (BaseObject).to.have.keys (['Mixin', 'PrototypeMixin','ClassMixin','extend','create']);
+      expect (BaseObject).to.have.keys (['PrototypeMixin','ClassMixin','extend','create']);
       expect (BaseObject).to.be.a ('function');
     });
   });
