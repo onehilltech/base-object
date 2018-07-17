@@ -20,3 +20,9 @@ Features
 * Computed properties simplify defining data properties on types and instances.
 
 
+Documentation
+-------------
+
+See the chapter on [The Object Model](https://blueprint.onehilltech.com/developer-guide/the-object-model) 
+from the [Blueprint documentation](https://blueprint.onehilltech.com) to learn 
+how to use Base Object.
