@@ -22,7 +22,7 @@ const {AssertionError} = require ('assert');
 describe ('lib | BaseObject', function () {
   describe ('class', function () {
     it ('should have a set of class properties', function () {
-      expect (BaseObject).to.have.keys (['PrototypeMixin','ClassMixin','extend','create']);
+      expect (BaseObject).to.have.keys (['PrototypeMixin','ClassMixin','extend','create', 'isSubclassOf']);
       expect (BaseObject).to.be.a ('function');
     });
   });
@@ -32,7 +32,7 @@ describe ('lib | BaseObject', function () {
       const A = BaseObject.extend ();
 
       expect (A).to.be.a ('function');
-      expect (A).to.have.keys (['PrototypeMixin','ClassMixin','extend','create']);
+      expect (A).to.have.keys (['PrototypeMixin','ClassMixin','extend','create','isSubclassOf']);
       expect (Object.keys (A.prototype)).to.have.length (0);
 
       let a = new A ();
@@ -215,6 +215,25 @@ describe ('lib | BaseObject', function () {
 
       expect (a.name).to.equal ('Jack');
     });
+  });
+
+  describe ('isSubclassOf', function () {
+    const A = BaseObject.extend ();
+    const B = A.extend ({});
+    const C = B.extend ({});
+
+    const D = BaseObject.extend ();
+
+    // You cannot be a subclass of yourself.
+    expect (A.isSubclassOf (A)).to.equal (false);
+
+    // C extends B extends A
+    expect (B.isSubclassOf (A)).to.equal (true);
+    expect (C.isSubclassOf (A)).to.equal (true);
+    expect (C.isSubclassOf (B)).to.equal (true);
+
+    // different type hierarchy.
+    expect (D.isSubclassOf (A)).to.equal (false);
   });
 
   describe ('concatProperties', function () {
