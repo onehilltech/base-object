@@ -22,7 +22,7 @@ const {AssertionError} = require ('assert');
 describe ('lib | BaseObject', function () {
   describe ('class', function () {
     it ('should have a set of class properties', function () {
-      expect (BaseObject).to.have.keys (['PrototypeMixin','ClassMixin','extend','create', 'isSubclassOf']);
+      expect (BaseObject).to.have.keys (['PrototypeMixin','ClassMixin','extend','extendClass', 'create', 'isSubclassOf']);
       expect (BaseObject).to.be.a ('function');
     });
   });
@@ -184,6 +184,49 @@ describe ('lib | BaseObject', function () {
       const a = new A ();
 
       expect (a.z ()).to.equal (12);
+    });
+  });
+
+  describe ('extendClass', function () {
+    it ('should extend a raw class', function () {
+      class A {
+        a () {
+          this.base = true;
+        }
+      }
+
+      let B = BaseObject.extendClass (A,  {
+        a () {
+          this._super.call (this, ...arguments);
+        },
+
+        b () {
+          this.derived = true;
+        }
+      });
+
+      let b1 = new B ();
+      expect (b1).to.be.instanceof (B);
+      expect (b1).to.be.instanceof (A);
+
+      b1.a ();
+      expect (b1.base).to.equal (true);
+
+      b1.b ();
+      expect (b1.derived).to.equal (true);
+
+      let b2 = B.create ();
+      expect (b2).to.be.instanceof (B);
+      expect (b2).to.be.instanceof (B);
+
+      let C = B.extend ({
+        c () {
+
+        }
+      });
+
+      let c = new C ();
+      expect (c).to.be.instanceof (A);
     });
   });
 
