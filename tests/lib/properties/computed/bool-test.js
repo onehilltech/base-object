@@ -14,20 +14,25 @@
  * limitations under the License.
  */
 
-const ComputedProperty = require ('../computed-property');
+const { expect } = require ('chai');
+const { computed, BaseObject } = require ('../../../../lib');
 
-/**
- * Create a generic computed property.
- *
- * @param descriptor            Computed property descriptor
- * @returns {ComputedProperty}
- */
-function computed (descriptor) {
-  return new ComputedProperty (descriptor);
-}
+describe ('lib | properties | computed | bool', function () {
+  const Person = BaseObject.extend ({
+    value: false,
 
-module.exports = computed;
+    isTrue: computed.bool ('value'),
+  });
 
-computed.alias = require ('./alias');
-computed.bool = require ('./bool');
-computed.constant = require ('./constant');
+  it ('should define a boolean computed property', function () {
+    const p = new Person ();
+    expect (p.isTrue).to.be.false;
+
+    p.value = true;
+    expect (p.isTrue).to.be.true;
+  });
+
+  it ('should throw an exception if changed', function () {
+    expect (() => p.isTrue = false).to.throw (Error);
+  })
+});

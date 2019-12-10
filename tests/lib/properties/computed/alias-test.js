@@ -17,7 +17,7 @@
 const { expect } = require ('chai');
 const { computed, BaseObject } = require ('../../../../lib');
 
-describe ('lib | properties | computed | constant', function () {
+describe ('lib | properties | computed | alias', function () {
   const Person = BaseObject.extend ({
     age: 18,
 
