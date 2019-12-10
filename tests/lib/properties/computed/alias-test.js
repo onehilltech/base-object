@@ -14,20 +14,21 @@
  * limitations under the License.
  */
 
-const ComputedProperty = require ('../computed-property');
+const { expect } = require ('chai');
+const { computed, BaseObject } = require ('../../../../lib');
 
-/**
- * Create a generic computed property.
- *
- * @param descriptor            Computed property descriptor
- * @returns {ComputedProperty}
- */
-function computed (descriptor) {
-  return new ComputedProperty (descriptor);
-}
+describe ('lib | properties | computed | constant', function () {
+  const Person = BaseObject.extend ({
+    age: 18,
 
-module.exports = computed;
+    years: computed.alias ('age')
+  });
 
-computed.alias = require ('./alias');
-computed.constant = require ('./constant');
+  it ('should define an alias computed property', function () {
+    const p = new Person ();
+    expect (p.years).to.equal (18);
 
+    p.years = 21;
+    expect (p.age).to.equal (21);
+  });
+});
