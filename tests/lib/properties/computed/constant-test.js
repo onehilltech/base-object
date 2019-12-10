@@ -14,6 +14,23 @@
  * limitations under the License.
  */
 
-exports.computed = require ('./computed');
-exports.PropertyDescriptor = require ('./property-descriptor');
-exports.ComputedProperty = require ('./computed-property');
+const { expect } = require ('chai');
+const { computed, BaseObject } = require ('../../../../lib');
+
+describe ('lib | properties | computed | constant', function () {
+  const Person = BaseObject.extend ({
+    DEFAULT_SIZE: computed.constant (5),
+  });
+
+  it ('should define a constant computed property', function () {
+    const p = new Person ();
+    expect (p.DEFAULT_SIZE).to.equal (5);
+  });
+
+  it ('should throw an exception if changed', function () {
+    const p = new Person ();
+
+    // cannot change the value
+    expect (() => p.DEFAULT_SIZE = 10).to.throw (Error);
+  })
+});

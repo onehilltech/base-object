@@ -15,25 +15,23 @@
  */
 
 const { expect } = require ('chai');
-const { computed } = require ('../../../lib');
-const PropertyDescriptor = require ('../../../lib/properties/property-descriptor');
+const { computed } = require ('../../../../lib');
+const { BaseObject } = require ('../../../../lib');
+
+const PropertyDescriptor = require ('../../../../lib/properties/property-descriptor');
 
 describe ('lib | properties | computed', function () {
   it ('should define a computed property', function () {
-    let obj = {
+    const Person = BaseObject.extend ({
+      firstName: null,
+      lastName: null,
+
       fullName: computed ({
-        get () {}
+        get ( ) { return `${this.firstName} ${this.lastName}` ; }
       })
-    };
+    });
 
-    expect (obj.fullName).to.be.instanceof (PropertyDescriptor);
+    let p = new Person ({firstName: 'John', lastName: 'Doe'});
+    expect (p.fullName).to.equal ('John Doe');
   });
-
-  describe ('computed.constant', function () {
-    let obj = {
-      DEFAULT_SIZE: computed.constant (5)
-    };
-
-    expect (obj.DEFAULT_SIZE).to.be.instanceof (PropertyDescriptor);
-  })
 });

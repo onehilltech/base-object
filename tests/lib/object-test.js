@@ -482,8 +482,6 @@ describe ('lib | BaseObject', function () {
             [this.firstName, this.lastName] = value.split (' ');
           }
         }),
-
-        DEFAULT_NAME: computed.constant ('Adam Staples')
       });
 
       let p1 = new Person ({firstName: 'John', lastName: 'Doe'});
@@ -497,11 +495,6 @@ describe ('lib | BaseObject', function () {
       p1.fullName = 'Jack Black';
       expect (p1.firstName).to.equal ('Jack');
       expect (p1.lastName).to.equal ('Black');
-
-      // test constant
-      expect (p1.DEFAULT_NAME).to.equal ('Adam Staples');
-      p1.DEFAULT_NAME = 'Susan Rice';
-      expect (p1.DEFAULT_NAME).to.equal ('Adam Staples');
 
       // test the enumerable
       let found;
@@ -559,20 +552,6 @@ describe ('lib | BaseObject', function () {
       }
 
       expect (found).to.be.true;
-    });
-
-    it ('should create a constant property', function () {
-      let A = BaseObject.extend ({
-        DEFAULT_VALUE: computed.constant (5)
-      });
-
-      let a = new A ();
-
-      expect (a.DEFAULT_VALUE).to.equal (5);
-
-      a.DEFAULT_VALUE = 10;
-
-      expect (a.DEFAULT_VALUE).to.equal (5);
     });
   });
 });
