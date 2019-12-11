@@ -14,22 +14,24 @@
  * limitations under the License.
  */
 
-const ComputedProperty = require ('../computed-property');
+const { expect } = require ('chai');
+const { computed, BaseObject } = require ('../../../../lib');
 
-/**
- * Create a generic computed property.
- *
- * @param descriptor            Computed property descriptor
- * @returns {ComputedProperty}
- */
-function computed (descriptor) {
-  return new ComputedProperty (descriptor);
-}
+describe ('lib | properties | computed | readonly', function () {
+  const Person = BaseObject.extend ({
+    value: 5,
+    DEFAULT_SIZE: computed.readonly ('value'),
+  });
 
-module.exports = computed;
+  it ('should define a readonly computed property', function () {
+    const p = new Person ();
+    expect (p.DEFAULT_SIZE).to.equal (5);
+  });
 
-computed.alias = require ('./alias');
-computed.bool = require ('./bool');
-computed.constant = require ('./constant');
-computed.not = require ('./not');
-computed.readonly = require ('./readonly');
+  it ('should throw an exception if changed', function () {
+    const p = new Person ();
+
+    // cannot change the value
+    expect (() => p.DEFAULT_SIZE = 10).to.throw (Error);
+  })
+});
