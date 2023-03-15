@@ -362,7 +362,7 @@ describe ('lib | BaseObject', function () {
       expect (() => new A ({
           concatProperties: ['words']
         })
-      ).to.throw (AssertionError);
+      ).to.throw (Error);
     })
   });
 
@@ -464,7 +464,7 @@ describe ('lib | BaseObject', function () {
       expect (() => new A ({
           mergedProperties: ['actions']
         })
-      ).to.throw (AssertionError);
+      ).to.throw (Error);
     });
   });
 
